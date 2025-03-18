@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Report - Plastic Detection</title>
+    <title>Generate Report - Pyrolysis Suitability Analyzer </title>
     <link rel="icon" href="static/images/Favicon.png" type="image/png">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f4f7fc;
-            color: #333;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
             margin: 0;
             padding: 0;
             display: flex;
@@ -24,47 +25,80 @@
 
         .container {
             width: 80%;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 900px;
             text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-out;
         }
 
         h1 {
             color: #11BC74;
-            font-size: 3em;
-            margin-top: 20px;
+            font-size: 2.5em;
+            animation: slideIn 1.5s ease-out;
         }
 
         .tagline {
             font-size: 1.2em;
             margin-top: 15px;
-            color: #555;
+            color: #ddd;
+            animation: fadeIn 2s ease-out;
         }
 
         .upload-form {
             margin-top: 20px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 5px;
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #11BC74;
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #0e9c5a;
         }
 
         .upload-button {
-            background-color: #11BC74;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
-            padding: 15px 30px;
+            border: 2px solid white;
+            padding: 12px 25px;
             font-size: 1.2em;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
         }
 
         .upload-button:hover {
-            background-color: #0e9c5a;
+            background: white;
+            color: #11BC74;
             transform: scale(1.1);
         }
 
         .status {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #555;
+            animation: fadeIn 2s ease-out;
         }
 
         .error {
@@ -75,6 +109,18 @@
             margin-top: 20px;
             font-size: 1.2em;
             color: #11BC74;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -92,17 +138,15 @@
         {% endif %}
 
         <!-- Success message and report link -->
-        <!-- Success message and report link -->
         {% if result %}
         <div class="status">
-            <p>Report generated successfully! <a href="{{ report_url }}" target="_blank">Download the report</a></p>
+            <p>Report generated successfully! <a href="{{ report_url }}" class="report-link" target="_blank">Download the report</a></p>
             <p>Filename: {{ filename }}</p>
         </div>
         {% endif %}
 
-
         <!-- Upload Form -->
-        <form action="/generate_report" method="POST" enctype="multipart/form-data">
+        <form action="/generate_report" method="POST" enctype="multipart/form-data" class="upload-form">
             <input type="file" name="file" id="fileInput" accept="image/*" required>
             <button type="submit" class="upload-button">Generate Report</button>
         </form>

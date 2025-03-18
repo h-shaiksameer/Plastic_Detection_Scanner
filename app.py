@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 from threading import Thread
 import plastic_detection
 from werkzeug.utils import secure_filename
@@ -13,9 +13,12 @@ app = Flask(__name__)
 
 # Thread variable
 scan_thread = None
+app.secret_key = os.urandom(24)  # Generates a random secret key
+
 
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['REPORT_FOLDER'] = 'reports'
+USERS_FILE = 'users.json'
 
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
@@ -26,10 +29,93 @@ if not os.path.exists(app.config['REPORT_FOLDER']):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
 
-@app.route('/')
+if not os.path.exists(USERS_FILE):
+    with open(USERS_FILE, 'w') as f:
+        json.dump({}, f)  # Create empty users.json
+
+
+# 🔹 Helper Function: Load Users
+def load_users():
+    with open(USERS_FILE, 'r') as f:
+        return json.load(f)
+
+
+# 🔹 Helper Function: Save Users
+def save_users(users):
+    with open(USERS_FILE, 'w') as f:
+        json.dump(users, f, indent=4)
+
+
+# ✅ Route: Register User
+@app.route('/register', methods=['POST'])
+def register():
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    users = load_users()
+
+    if email in users:
+        return render_template('register.html', error="User already exists!")
+
+    users[email] = {"name": name, "password": password}
+    save_users(users)
+
+    return redirect(url_for('login'))
+
+@app.route('/register', methods=['GET'])
+def register_page():
+    return render_template('register.html')
+
+
+# ✅ Route: Login User
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        users = load_users()
+
+        if email in users and users[email]['password'] == password:
+            session['user'] = email  # Store user session
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', error="Invalid credentials!")
+
+    return render_template('login.html')
+
+
+# ✅ Route: Logout User
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+
+# ✅ Protected Route: Index (Only Logged-in Users)
+@app.route('/index')
 def index():
-    # Render the HTML interface
+    if 'user' not in session:
+        return redirect(url_for('login'))
     return render_template('index.html')
+
+
+# ✅ Protect Other Routes
+@app.before_request
+def require_login():
+    allowed_routes = ['login', 'register', 'static', 'register_page']
+    if request.endpoint not in allowed_routes and 'user' not in session:
+        return redirect(url_for('login'))
+    
+@app.route('/about')
+def about():
+    # Render the HTML interface
+    return render_template('about.html')
+@app.route('/contact')
+def contact():
+    # Render the HTML interface
+    return render_template('contact.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

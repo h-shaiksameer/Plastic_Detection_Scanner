@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Plastic Detection System</title>
+    <link rel="icon" href="static/images/Favicon.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .content {
+            padding: 100px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .content h1 {
+            color: #11BC74;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #ddd;
+        }
+        .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 15px 50px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .logo {
+        font-size: 1.8em;
+        font-weight: 600;
+        color: #11BC74;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+    }
+
+    .nav-links li {
+        display: inline-block;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-size: 1.1em;
+        transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+        color: #11BC74;
+    }
+
+    /* Content Alignment */
+    .content {
+        padding: 120px 20px 50px;
+        text-align: center;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .content h1 {
+        color: #11BC74;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+    }
+
+    /* Footer Styling */
+    .footer {
+        text-align: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    .footer a {
+        color: #11BC74;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Plastic Detection</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>About Our Plastic Detection System</h1>
+        <p>
+            Our mission is to leverage AI technology for a cleaner, greener future by detecting plastic waste and determining its recyclability. 
+            By analyzing images of plastic materials, we help in identifying which plastics are suitable for pyrolysis, 
+            contributing to sustainable waste management and reducing pollution.
+        </p>
+        <p>
+            Join us in our journey to revolutionize waste management through innovation!
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Plastic Detection System | <a href="/privacy-policy">Privacy Policy</a> | <a href="/terms">Terms</a></p>
+    </footer>
+
+</body>
+
+</html>

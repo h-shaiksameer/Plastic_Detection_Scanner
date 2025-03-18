@@ -10,8 +10,8 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f4f7fc;
-            color: #333;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,49 +26,80 @@
             font-size: 2.5em;
             margin: 20px 0;
             text-align: center;
+            animation: slideIn 1.5s ease-out;
         }
 
         .form-container {
-            background-color: white;
+            background: rgba(255, 255, 255, 0.1);
             padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
             width: 100%;
             max-width: 600px;
             text-align: center;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 2s ease-out;
         }
 
-        .form-container input[type="file"] {
+        label {
+            font-size: 1.2em;
+            color: white;
+        }
+
+        input[type="file"] {
             margin: 15px 0;
             padding: 10px;
-            font-size: 1em;
-        }
-
-        .form-container button {
-            background-color: #11BC74;
-            color: white;
-            padding: 10px 20px;
-            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
             border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.3s;
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
         }
 
-        .form-container button:hover {
-            background-color: #0e9c5a;
-            transform: scale(1.05);
+        input[type="file"]::file-selector-button {
+            background: #11BC74;
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #0e9c5a;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: white;
+            color: #11BC74;
+            transform: scale(1.1);
         }
 
         .result {
             margin-top: 30px;
-            background-color: white;
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             text-align: center;
             max-width: 600px;
             width: 100%;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 2s ease-out;
         }
 
         .result h2 {
@@ -81,11 +112,11 @@
             height: auto;
             margin: 20px 0;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .result h3 {
-            color: #333;
+            color: white;
             margin: 20px 0 10px;
             font-weight: 400;
             font-size: 2.2em;
@@ -93,7 +124,7 @@
 
         .result p {
             font-size: 1.2em;
-            color: #555;
+            color: #ddd;
             line-height: 2em;
         }
 
@@ -103,6 +134,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: bounce 1s infinite;
         }
 
         .red-flag {
@@ -111,6 +143,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: shake 0.5s infinite;
         }
 
         .footer {
@@ -119,8 +152,31 @@
             width: 100%;
             text-align: center;
             font-size: 1em;
-            color: #555;
+            color: #ddd;
             margin-top: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
         }
     </style>
 </head>
@@ -136,7 +192,6 @@
         </form>
     </div>
 
-    <!-- Only show the analysis result and image if the file is uploaded and processed -->
     {% if filename %}
     <div class="result">
         <h2>Uploaded Image:</h2>
@@ -151,7 +206,7 @@
         </div>
         {% else %}
         <div class="red-flag">
-            🚫This material is NOT suitable for pyrolysis.🚫
+            🚫 This material is NOT suitable for pyrolysis. 🚫
         </div>
         {% endif %}
     </div>
