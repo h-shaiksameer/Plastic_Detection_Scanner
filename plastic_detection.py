@@ -94,7 +94,7 @@ if os.getenv('RENDER') is None:  # assuming 'RENDER' is not set in Render enviro
     pygame.mixer.init()
 
 # Load the YOLOv8 model
-model_path = 'C:/Users/hp/Desktop/Plastic_detection/yolov8n.pt'
+model_path = 'model/yolov8n.pt'
 model = YOLO(model_path)
 
 # Define file paths for audio
