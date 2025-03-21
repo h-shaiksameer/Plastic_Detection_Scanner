@@ -96,10 +96,11 @@ if os.getenv('RENDER') is None:  # assuming 'RENDER' is not set in Render enviro
 # Load the YOLOv8 model
 model_path = 'model/yolov8n.pt'
 model = YOLO(model_path)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  
 
-# Define file paths for audio
-plastic_detected_audio = 'C:/Users/hp/Desktop/Plastic_detection/audio/Plastic_detected.mp3'
-no_plastic_audio = 'C:/Users/hp/Desktop/Plastic_detection/audio/NO_plastic.mp3'
+# Define relative file paths  
+plastic_detected_audio = os.path.join(BASE_DIR, 'audio', 'Plastic_detected.mp3')  
+no_plastic_audio = os.path.join(BASE_DIR, 'audio', 'NO_plastic.mp3')  
 
 # Define a list of object classes related to plastic
 plastic_classes = ['bottle', 'cup', 'cover', 'wrapper', 'bag', 'can', 'container', 'cell phone', 'remote', 'toilet']

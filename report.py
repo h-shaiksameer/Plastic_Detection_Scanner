@@ -196,7 +196,7 @@ def create_report_5(image_path, result, filename):
     width, height = letter
 
     # **First page**: Display logo (Favicon.png)
-    c.drawImage(r"C:\Users\hp\Desktop\Plastic_detection\static\images\Favicon.png", 100, height - 150, width=200, height=150)
+    c.drawImage(r"static/images/Favicon.png", 100, height - 150, width=200, height=150)
     c.setFont("Helvetica-Bold", 24)
     c.drawString(100, height - 250, "Plastic Detection Report")
     c.setFont("Helvetica", 12)
@@ -301,7 +301,7 @@ def create_report_4(image_path, result, filename):
 
     # First page: Display logo (Favicon.png)
     draw_header_footer(1)
-    c.drawImage(r"C:\Users\hp\Desktop\Plastic_detection\static\images\Favicon.png", 100, height - 150, width=200, height=150)
+    c.drawImage(r"static/images/Favicon.png", 100, height - 150, width=200, height=150)
     c.setFont("Helvetica-Bold", 24)
     c.drawString(100, height - 250, "Plastic Detection Report")
     c.setFont("Helvetica", 12)
