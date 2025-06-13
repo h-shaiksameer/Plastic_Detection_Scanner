@@ -5,9 +5,9 @@ import numpy as np
 from ultralytics import YOLO
 
 # Load YOLOv5 model (pretrained on COCO dataset)
-# model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
-model_path = 'model/yolov5s.pt'
-model = YOLO(model_path)
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
+# model_path = 'model/yolov5s.pt'
+# model = YOLO(model_path)
 #Define plastic-related classes
 plastic_classes = ['bottle', 'cup', 'cover', 'wrapper', 'bag', 'can', 'container', 'cell phone', 'remote', 'toilet','polythene']
 
